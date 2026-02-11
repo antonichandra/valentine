@@ -3,91 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Valentine ❤️</title>
+<title>Valentine Invitation ❤️</title>
 
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Georgia', serif;
 }
 
 body {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  background: linear-gradient(135deg, #fbd3e9, #fbc2eb);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   overflow: hidden;
 }
 
-/* Opening */
-.opening {
-  text-align: center;
-  color: white;
+/* Floating Hearts */
+body::before, body::after {
+  content: "❤";
+  position: absolute;
+  font-size: 30px;
+  color: rgba(255, 0, 80, 0.3);
+  animation: float 6s infinite ease-in-out;
 }
 
-button {
-  margin-top: 20px;
-  padding: 12px 30px;
-  border-radius: 30px;
-  border: none;
-  background: white;
-  color: #ff4b6e;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+body::after {
+  left: 80%;
+  top: 70%;
+  animation-delay: 3s;
 }
 
-button:hover {
-  transform: scale(1.05);
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
 }
 
 /* Envelope */
-.container {
-  display: none;
+.wrapper {
   text-align: center;
-  animation: fadeIn 1.5s ease forwards;
 }
 
 .envelope {
-  width: 200px;
-  height: 120px;
-  background: #ff4b6e;
+  width: 260px;
+  height: 160px;
+  background: #b33951;
   position: relative;
-  margin: 0 auto;
   border-radius: 6px;
+  margin: auto;
+  cursor: pointer;
 }
 
 .flap {
   width: 0;
   height: 0;
-  border-left: 100px solid transparent;
-  border-right: 100px solid transparent;
-  border-bottom: 70px solid #ff6f91;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-bottom: 90px solid #d65a75;
   position: absolute;
-  top: -70px;
+  top: -90px;
   left: 0;
   transform-origin: bottom;
-  transition: 1s ease;
+  transition: 0.8s ease;
 }
 
 .letter {
   position: absolute;
-  width: 180px;
-  height: 100px;
-  background: white;
-  top: 10px;
-  left: 10px;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateY(0);
-  transition: 1s ease;
+  width: 230px;
+  height: 250px;
+  background: #fff0f5;
+  top: 15px;
+  left: 15px;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transform: translateY(140px);
+  transition: 0.8s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
+/* Border ornament */
+.letter::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 2px solid #e75480;
+  border-radius: 6px;
+}
+
+/* Open State */
 .open .flap {
   transform: rotateX(180deg);
 }
@@ -96,55 +104,70 @@ button:hover {
   transform: translateY(-120px);
 }
 
-.message {
-  margin-top: 30px;
+/* Typography */
+h2 {
+  margin-bottom: 10px;
+  color: #b33951;
+}
+
+.event-title {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.details {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.toggle-btn {
+  margin-top: 20px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #b33951;
   color: white;
-  opacity: 0;
-  transition: 1.5s ease;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.show-message {
-  opacity: 1;
-}
-
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+.toggle-btn:hover {
+  background: #91263a;
 }
 
 </style>
 </head>
 <body>
 
-<div class="opening">
-  <h1>Hai Sayang ❤️</h1>
-  <button onclick="openInvite()">Buka Undangan</button>
-</div>
+<div class="wrapper">
 
-<div class="container" id="invite">
-  <div class="envelope" id="envelope">
+  <div class="envelope" id="envelope" onclick="toggleLetter()">
     <div class="flap"></div>
-    <div class="letter">💌</div>
+
+    <div class="letter">
+      <h2 class="event-title">Valentine's Night</h2>
+      <div class="details">
+        📅 14 Februari 2026<br>
+        ⏰ 19:00 WIB<br>
+        📍 The Westin Jakarta<br>
+        Dress Code: White & Pink
+      </div>
+    </div>
   </div>
 
-  <button onclick="openLetter()">Buka Surat</button>
+  <button class="toggle-btn" onclick="toggleLetter()">Buka / Tutup Surat</button>
 
-  <div class="message" id="message">
-    <h2>Happy Valentine ❤️</h2>
-    <p>Terima kasih sudah hadir dalam hidupku.</p>
-    <p>Aku ingin terus bersamamu 💖</p>
-  </div>
 </div>
 
 <script>
-function openInvite() {
-  document.querySelector(".opening").style.display = "none";
-  document.getElementById("invite").style.display = "block";
-}
+let isOpen = false;
 
-function openLetter() {
-  document.getElementById("envelope").classList.add("open");
-  document.getElementById("message").classList.add("show-message");
+function toggleLetter() {
+  const envelope = document.getElementById("envelope");
+  isOpen = !isOpen;
+  envelope.classList.toggle("open");
 }
 </script>
 
