@@ -1,175 +1,296 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine Invitation ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Valentine Digital</title>
+    
+    <!-- Google Fonts untuk tampilan yang elegan -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Chrome, Edge, Safari */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #f8cdda, #fcbad3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* overflow: hidden; */
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+        }
+        
+        /* Container utama untuk responsivitas */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .container-open {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Georgia', serif;
-}
+        }
+        
+        /* Envelope dengan ukuran responsif */
+        .envelope {
+            width: 260px;
+            height: 160px;
+            background: #b33951;
+            position: relative;
+            border-radius: 6px;
+            margin: auto;
+            cursor: pointer;
+        }
 
-body {
-  background: linear-gradient(135deg, #fbd3e9, #fbc2eb);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Floating Hearts */
-body::before, body::after {
-  content: "❤";
-  position: absolute;
-  font-size: 30px;
-  color: rgba(255, 0, 80, 0.3);
-  animation: float 6s infinite ease-in-out;
-}
-
-body::after {
-  left: 80%;
-  top: 70%;
-  animation-delay: 3s;
-}
-
-@keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0); }
-}
-
-/* Envelope */
-.wrapper {
-  text-align: center;
-}
-
-.envelope {
-  width: 260px;
-  height: 160px;
-  background: #b33951;
-  position: relative;
-  border-radius: 6px;
-  margin: auto;
-  cursor: pointer;
-}
-
-.flap {
-  width: 0;
-  height: 0;
-  border-left: 130px solid transparent;
-  border-right: 130px solid transparent;
-  border-bottom: 90px solid #d65a75;
-  position: absolute;
-  top: -90px;
-  left: 0;
-  transform-origin: bottom;
-  transition: 0.8s ease;
-}
-
-.letter {
-  position: absolute;
-  width: 230px;
-  height: 250px;
-  background: #fff0f5;
-  top: 15px;
-  left: 15px;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  transform: translateY(140px);
-  transition: 0.8s ease;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* Border ornament */
-.letter::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border: 2px solid #e75480;
-  border-radius: 6px;
-}
-
-/* Open State */
-.open .flap {
-  transform: rotateX(180deg);
-}
-
-.open .letter {
-  transform: translateY(-120px);
-}
-
-/* Typography */
-h2 {
-  margin-bottom: 10px;
-  color: #b33951;
-}
-
-.event-title {
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.details {
-  margin-top: 15px;
-  font-size: 14px;
-  color: #444;
-  line-height: 1.6;
-}
-
-.toggle-btn {
-  margin-top: 20px;
-  padding: 8px 20px;
-  border-radius: 20px;
-  border: none;
-  background: #b33951;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.toggle-btn:hover {
-  background: #91263a;
-}
-
-</style>
+        .envelope:hover {
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Flap envelope dengan animasi rotasi yang smooth */
+    
+        .flap {
+            width: 0;
+            height: 0;
+            border-left: 130px solid transparent;
+            border-right: 130px solid transparent;
+            border-top: 90px solid #d65a75;
+            position: absolute;
+            top: 0px;
+            left: 0;
+            transform-origin: top center;
+            transition: 0.8s ease;
+        }
+        
+        /* Surat yang muncul dengan animasi slide dan fade */
+        .letter {
+            position: absolute;
+            
+            width: 700px;
+            height: fit-content;
+            background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+            left: -225px;
+            top: -100px;
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(150px) scale(0.9);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 4;
+        }
+        
+        .letter::before {
+            content: "";
+            position: absolute;
+            inset: 15px;
+            border: 2px solid #e75480;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        /* State ketika envelope terbuka */
+        .open .flap {
+            transform: rotateX(180deg);
+        }
+        
+        .open .letter {
+            transform: translateY(180px) scale(1);
+            opacity: 1;
+        }
+        
+        /* Typography yang elegan */
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #b33951;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .message {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .details {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+        
+        .details strong {
+            color: #b33951;
+        }
+        
+        /* Floating hearts untuk ornamen romantis */
+        .heart {
+            position: absolute;
+            color: rgba(255, 0, 80, 0.5);
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+            font-size: 24px;
+        }
+        
+        .heart:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 80%; top: 70%; animation-delay: 2s; font-size: 30px; }
+        .heart:nth-child(3) { left: 20%; top: 60%; animation-delay: 4s; font-size: 20px; }
+        .heart:nth-child(4) { left: 70%; top: 30%; animation-delay: 1s; font-size: 26px; }
+        .heart:nth-child(5) { left: 50%; top: 10%; animation-delay: 3s; font-size: 22px; }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        /* Responsivitas untuk mobile */
+        @media (max-width: 425px) {
+            /* .envelope {
+                width: 280px;
+                height: 170px;
+            } */
+            /* .flap {
+                width: 0;
+                height: 0;
+                border-left: 140px solid transparent;
+                border-right: 140px solid transparent;
+                border-bottom: 100px solid #d65a75;
+                position: absolute;
+                top: 1px;
+                left: 0;
+                transform-origin: top center;
+                transition: 0.8s ease;
+                
+            } */
+            .letter {
+                width: 280px;
+                left: -10px;
+                /* height: fit-content;
+                left: 20px;
+                top: 10px; */
+                padding: 30px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .message, .details {
+                font-size: 14px;
+            }
+        }
+        
+        /* Tombol play musik (opsional, jika ingin kontrol manual) */
+        .music-control {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background 0.3s ease;
+        }
+        
+        .music-control:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+    </style>
 </head>
 <body>
-
-<div class="wrapper">
-
-  <div class="envelope" id="envelope" onclick="toggleLetter()">
-    <div class="flap"></div>
-
-    <div class="letter">
-      <h2 class="event-title">Valentine's Night</h2>
-      <div class="details">
-        📅 14 Februari 2026<br>
-        ⏰ 19:00 WIB<br>
-        📍 The Westin Jakarta<br>
-        Dress Code: White & Pink
-      </div>
+    <!-- Floating hearts sebagai ornamen -->
+    <div class="heart">❤️</div>
+    <div class="heart">💖</div>
+    <div class="heart">💕</div>
+    <div class="heart">💗</div>
+    <div class="heart">💓</div>
+    
+    <div class="container" id="container">
+        <div class="envelope" id="envelope" onclick="toggleLetter()">
+            <div class="flap"></div>
+            <div class="letter">
+                <h2>Undangan Valentine's Night</h2>
+                <div class="message">
+                    My dearest love,<br>
+                    In the quiet moments of our hearts, I find the deepest joy in your presence. Let's celebrate our love with a romantic dinner under the stars. I can't wait to hold your hand and create memories that will last forever.<br>
+                    With all my heart,<br>
+                    [Your Name]
+                </div>
+                <div class="details">
+                    <strong>📅 Tanggal:</strong> 14 Februari 2026<br>
+                    <strong>⏰ Waktu:</strong> 19:00 WIB<br>
+                    <strong>📍 Tempat:</strong> The Westin Jakarta<br><br>
+                    <strong>Dress Code:</strong> White & Pink
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <!-- Kontrol musik (opsional) -->
+    <button class="music-control" onclick="toggleMusic()">🎵</button>
+    
+    <!-- Audio latar (diganti dengan music.mp4 Anda) -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="music.mp4" type="audio/mp4">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <script>
+        let isOpen = false;
+        const container = document.getElementById("container");
+        const envelope = document.getElementById("envelope");
+        const music = document.getElementById("bgMusic");
+        
+     
 
-  <button class="toggle-btn" onclick="toggleLetter()">Buka / Tutup Surat</button>
-
-</div>
-
-<script>
-let isOpen = false;
-
-function toggleLetter() {
-  const envelope = document.getElementById("envelope");
-  isOpen = !isOpen;
-  envelope.classList.toggle("open");
-}
-</script>
-
+        function toggleLetter() {
+            isOpen = !isOpen;
+            container.classList.toggle("container-open");
+            envelope.classList.toggle("open");
+            
+            if (music.paused) {
+                music.play();
+            } 
+        }
+        
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+        
+        // Opsional: Auto-play musik saat halaman load (tapi sering diblokir browser)
+        // window.addEventListener('load', () => music.play());
+    </script>
 </body>
 </html>
