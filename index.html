@@ -80,31 +80,54 @@
         }
         
         /* Surat yang muncul dengan animasi slide dan fade */
-        .letter {
+        .letter-container {
             position: absolute;
             
             width: 700px;
             height: fit-content;
-            background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+            /* background: linear-gradient(145deg, #fff0f5, #ffe4e1); */
             left: -225px;
             top: -100px;
+            /* border-radius: 12px; */
+            /* padding: 30px 25px; */
+            /* text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); */
+            transform: translateY(150px) scale(0.9);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* z-index: 4; */
+        }
+        .letter {
+            width: 100%;
+            height: fit-content;
+            background: linear-gradient(145deg, #fff0f5, #ffe4e1);
+            /* left: -225px;
+            top: -100px; */
             border-radius: 12px;
             padding: 30px 25px;
             text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            transform: translateY(150px) scale(0.9);
+            /* transform: translateY(150px) scale(0.9);
             opacity: 0;
             transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 4;
+            z-index: 4; */
         }
         
-        .letter::before {
+        .letter-container::before {
             content: "";
+            position: absolute;
+            /* inset: 15px; */
+            /* border: 2px solid #e75480; */
+            /* border-radius: 8px; */
+            pointer-events: none;
+        }
+        .letter::before {
+            /* content: "";
             position: absolute;
             inset: 15px;
             border: 2px solid #e75480;
             border-radius: 8px;
-            pointer-events: none;
+            pointer-events: none; */
         }
         
         /* State ketika envelope terbuka */
@@ -112,9 +135,12 @@
             transform: rotateX(180deg);
         }
         
-        .open .letter {
+        .open .letter-container {
             transform: translateY(180px) scale(1);
             opacity: 1;
+        }
+        .open .test {
+            margin-bottom: 100px;
         }
         
         /* Typography yang elegan */
@@ -185,12 +211,11 @@
                 transition: 0.8s ease;
                 
             } */
-            .letter {
+            .letter-container {
                 width: 280px;
                 left: -10px;
-                /* height: fit-content;
-                left: 20px;
-                top: 10px; */
+            }
+            .letter {
                 padding: 30px;
             }
             h2 {
@@ -226,33 +251,36 @@
     </style>
 </head>
 <body>
+    
+    <div class="container" id="container">
+        <div class="envelope" id="envelope" onclick="toggleLetter()">
+            <div class="flap"></div>
+            <div class="letter-container">
+                <div class="letter">
+                    <h2>Undangan Valentine's Night</h2>
+                    <div class="message">
+                        My dearest love,<br>
+                        In the quiet moments of our hearts, I find the deepest joy in your presence. Let's celebrate our love with a romantic dinner under the stars. I can't wait to hold your hand and create memories that will last forever.<br>
+                        With all my heart,<br>
+                        Vanessa
+                    </div>
+                    <div class="details">
+                        <strong>📅 Tanggal:</strong> 14 Februari 2026<br>
+                        <strong>⏰ Waktu:</strong> 19:00 WIB<br>
+                        <strong>📍 Tempat:</strong> The Westin Jakarta<br><br>
+                        <strong>Dress Code:</strong> White & Pink
+                    </div>
+                </div>
+                <div class="test"></div>
+            </div>
+        </div>
+    </div>
     <!-- Floating hearts sebagai ornamen -->
     <div class="heart">❤️</div>
     <div class="heart">💖</div>
     <div class="heart">💕</div>
     <div class="heart">💗</div>
     <div class="heart">💓</div>
-    
-    <div class="container" id="container">
-        <div class="envelope" id="envelope" onclick="toggleLetter()">
-            <div class="flap"></div>
-            <div class="letter">
-                <h2>Undangan Valentine's Night</h2>
-                <div class="message">
-                    My dearest love,<br>
-                    In the quiet moments of our hearts, I find the deepest joy in your presence. Let's celebrate our love with a romantic dinner under the stars. I can't wait to hold your hand and create memories that will last forever.<br>
-                    With all my heart,<br>
-                    [Your Name]
-                </div>
-                <div class="details">
-                    <strong>📅 Tanggal:</strong> 14 Februari 2026<br>
-                    <strong>⏰ Waktu:</strong> 19:00 WIB<br>
-                    <strong>📍 Tempat:</strong> The Westin Jakarta<br><br>
-                    <strong>Dress Code:</strong> White & Pink
-                </div>
-            </div>
-        </div>
-    </div>
     
     <!-- Kontrol musik (opsional) -->
     <button class="music-control" onclick="toggleMusic()">🎵</button>
